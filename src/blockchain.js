@@ -33,8 +33,6 @@ class Block {
       this.nonce++;
       this.hash = this.calculateHash();
     }
-
-    console.log("Block mined: " + this.hash);
   }
 }
 
@@ -53,12 +51,6 @@ class Blockchain {
   getLatestBlock() {
     return this.chain[this.chain.length - 1];
   }
-
-  // addBlock(newBlock) {
-  //   newBlock.previousHash = this.getLatestBlock().hash;
-  //   newBlock.mineBlock(this.difficulty);
-  //   this.chain.push(newBlock);
-  // }
 
   minePendingTransactions(miningRewardAddress) {
     let block = new Block(Date.now(), this.pendingTransactions); // miners should be able to choose which transactions are included
@@ -110,22 +102,5 @@ class Blockchain {
   }
 }
 
-let myCoin = new Blockchain();
-myCoin.createTransaction(new Transaction("address1", "address2", 100));
-myCoin.createTransaction(new Transaction("address2", "address1", 50));
-
-console.log("\n Starting the miner...");
-myCoin.minePendingTransactions("address3");
-
-console.log(
-  "\n Balance of address 3 is",
-  myCoin.getBalanceOfAddress("address3")
-);
-
-console.log("\n Starting the miner...");
-myCoin.minePendingTransactions("address3");
-
-console.log(
-  "\n Balance of address 3 is",
-  myCoin.getBalanceOfAddress("address3")
-);
+module.exports.Blockchain = Blockchain;
+module.exports.Transaction = Transaction;
